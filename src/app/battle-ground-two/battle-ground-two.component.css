@@ -1,0 +1,248 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg,
+      #5C2A9D 15.21%, #7B37D5 42.29%,
+      rgba(113, 84, 150, 0.48) 78.75%,
+      rgba(0, 0, 0, 0.01) 100%);
+}
+
+.header {
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-style: normal;
+}
+
+h1 {
+  display: inline;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 56px;
+  color: #BE9AE3;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.logo {
+  width: 115px;
+  height: auto;
+}
+
+.subscribe {
+  width: 256px;
+  height: 58px;
+  /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); */
+  color: beige;
+  background: linear-gradient(180deg, #FF0000 0%, #D70303 38.65%, #7D0101 68.85%, #4D0101 100%);
+  border-radius: 3px;
+  text-align: center;
+  line-height: 42px;
+  font-weight: 700;
+  border: none;
+}
+
+.body {
+  display: flex;
+}
+
+.left-container {
+  width: 40vw;
+  /* height:80vh; */
+  padding: 30px;
+}
+
+.middle-container {
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* height:80vh; */
+}
+
+.table-font{
+    font-size: 18px;
+}
+
+.player-card {
+  height: 100%;
+  background: linear-gradient(0deg, #493B53 0%, rgba(199, 163, 227, 0.975875) 25.1%, rgba(255, 255, 255, 0.956886) 60.52%, rgba(255, 255, 255, 0.94) 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  outline: none;
+  border: none;
+}
+
+.player-card div:nth-child(2)>h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.left-player-image>img {
+  width: 102px;
+  height: 102px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.left-player-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px
+}
+
+.left-flag {
+  padding: 35px;
+}
+
+.left-flag>img {
+  width: 102px;
+  height: 102px;
+  height: auto;
+  border-radius: 0%;
+}
+
+.stat-container {
+  margin-top: 30px;
+}
+
+.right-container {
+  width: 40vw;
+  /* height:80vh; */
+  padding: 30px;
+
+}
+
+.money {
+  color: #488100;
+}
+
+p {
+  font-size: 32px;
+  color: #B5076B;
+  font-weight: 700;
+}
+
+.right-flag {
+  height: 42px;
+  width: auto;
+}
+
+.right-player-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px
+}
+
+.right-player-image>img {
+  width: 80px;
+  height: 80px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.table {
+  width: 80%;
+}
+
+.running-info {
+  width: 100%;
+  height: 32px;
+  background-color: darkblue;
+  overflow: hidden;
+}
+
+.running-info>p {
+  color: white;
+  display: inline;
+  position: relative;
+  left: 1200px;
+  white-space: nowrap;
+  animation: breakingInfo 38s linear infinite;
+}
+
+@keyframes breakingInfo {
+  from {
+    left: 3000px;
+  }
+
+  to {
+    left: -2300px;
+  }
+}
+
+.primary-color {
+  color: #B5076B;
+}
+
+/* Timer */
+.base-timer {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__label {
+  position: absolute;
+  font-weight: 700;
+  color: #ffff;
+  /* Size should match the parent container */
+  width: 300px;
+  height: 300px;
+
+  /* Keep the label aligned to the top */
+  top: 0;
+
+  /* Create a flexible box that centers content vertically and horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Sort of an arbitrary number; adjust to your liking */
+  font-size: 48px;
+}
+
+/* Timer Green Circle */
+.base-timer__path-remaining {
+  /* Just as thick as the original ring */
+  stroke-width: 7px;
+
+  /* Rounds the line endings to create a seamless circle */
+  stroke-linecap: round;
+
+  /* Makes sure the animation starts at the top of the circle */
+  transform: rotate(90deg);
+  transform-origin: center;
+
+  /* One second aligns with the speed of the countdown timer */
+  transition: 1s linear all;
+
+  /* Allows the ring to change color when the color value updates */
+  stroke: green;
+}
+
+.base-timer__svg {
+  /* Flips the svg and makes the animation to move left-to-right */
+  transform: scaleX(-1);
+}

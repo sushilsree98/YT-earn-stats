@@ -1,0 +1,181 @@
+<div class="main">
+  <div class="running-info">
+    <p style="font-size:22px"> The video game industry is growing so fast that some believe it will reach over $300 billion by 2025._Forbes *********** LIKE, SUBSCRIBE AND TURN ON THE NOTIFICATION TO SUPPORT OUR CHANNEL ***********</p>
+  </div>
+  <div class="header">
+    <div>
+      <img class="logo" src="../../assets/images/logo.png" alt="logo">
+    </div>
+    <div>
+      <h1>
+        Ultimate Digital Championship
+      </h1>
+    </div>
+    <div>
+      <a class="btn subscribe">SUBSCRIBE</a>
+    </div>
+  </div>
+  <div class="body">
+    <div class="left-container ">
+      <div class="player-card card p-3" style="height: 70vh;">
+        <div class="pt-3 pl-3" *ngIf="left_top">
+          <h5 class="text-left font-weight-bold">Up Next</h5>
+        </div>
+        <div class="container p-0" *ngIf="left_top">
+          <div class="row">
+            <div class="col-lg-3 px-1">
+              <div class="right-player-image">
+                <img src="{{left_top.left_image}}" alt="">
+              </div>
+            </div>
+            <div class="col-lg-9 px-3">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h5 class="font-weight-bold">{{left_top.left_title}}</h5>
+                </div>
+                <div class="col-lg-4">
+                  <img class="right-flag" src="https://www.countryflags.io/{{left_top.left_country}}/flat/64.png"
+                    alt="">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-12 d-flex align-items-center">
+                  <p class="money my-1 align-self-center">${{left_top.left_earning | comma}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <p class="my-1">{{left_top.left_subscribers | comma}} <span class="text-dark">Subscribers</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row my-3">
+          <div class="col-lg-6">
+            <p class="text-center mb-1 money">${{left_combined_earnings | comma}}</p>
+            <h6 class="font-weight-bold text-center"> Combined Earnings </h6>
+          </div>
+          <div class="col-lg-6">
+            <p class="text-center mb-1">{{left_combined_subscribers | comma}}</p>
+            <h6 class="font-weight-bold text-center text-nowrap"> Combined Subscribers </h6>
+          </div>
+        </div>
+        <div class="container d-flex justify-content-center">
+          <table class="table table-borderless" *ngIf="right_down.length > 0">
+            <thead>
+              <tr>
+                <th scope="col text-right"> <span class="primary-color table-font">No</span></th>
+                <th scope="col text-right"><span class="primary-color table-font">Name</span></th>
+                <th scope="col text-right"><span class="primary-color table-font">Subscribers</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let key of left_down.slice().reverse() | slice:0:left_table_limit; let i=index">
+                <th class="table-font" scope="row">{{left_down.length - i}}</th>
+                <td class="font-weight-bold table-font">{{key.left_title}}</td>
+                <td class="font-weight-bold table-font">{{key.left_subscribers | comma}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="middle-container">
+      <div class="base-timer" *ngIf="right_top">
+        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="base-timer__circle">
+            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+            <path id="base-timer-path-remaining" stroke-dasharray="283" #dashArray
+              class="base-timer__path-remaining ${remainingPathColor}" d="
+                        M 50, 50
+                        m -45, 0
+                        a 45,45 0 1,0 90,0
+                        a 45,45 0 1,0 -90,0
+                    "></path>
+          </g>
+        </svg>
+        <span id="base-timer-label" class="base-timer__label">
+          <!-- Remaining time label -->
+          {{formatTimeLeft(timeLeft)}}
+        </span>
+      </div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart style="height: 300px; width: 307px;" [datasets]="barChartData" [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend" [chartType]="barChartType">
+          </canvas>
+          <h5 class="text-center" *ngIf="right_down.length > 0">Earnings Comparison</h5>
+        </div>
+      </div>
+    </div>
+    <div class="right-container">
+      <div class="player-card p-3">
+        <div class="pt-3 pl-3" *ngIf="right_top">
+          <h5 class="text-left font-weight-bold">Up Next</h5>
+        </div>
+        <div class="container p-0" *ngIf="right_top">
+          <div class="row">
+            <div class="col-lg-3 px-1">
+              <div class="right-player-image">
+                <img src="{{right_top.right_image}}" alt="">
+              </div>
+            </div>
+            <div class="col-lg-9 px-3">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h5 class="font-weight-bold">{{right_top.right_title}}</h5>
+                </div>
+                <div class="col-lg-4">
+                  <img class="right-flag" src="https://www.countryflags.io/{{right_top.right_country}}/flat/64.png"
+                    alt="">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-12 d-flex align-items-center">
+                  <p class="money my-1 align-self-center">${{right_top.right_earning | comma}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <p class="my-1">{{right_top.right_subscribers | comma}} <span class="text-dark">Subscribers</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row my-3">
+          <div class="col-lg-6">
+            <p class="text-center mb-1 money">${{right_combined_earnings | comma}}</p>
+            <h6 class="font-weight-bold text-center"> Combined Earnings </h6>
+          </div>
+          <div class="col-lg-6">
+            <p class="text-center mb-1">{{right_combined_subscribers | comma}}</p>
+            <h6 class="font-weight-bold text-center text-nowrap"> Combined Subscribers </h6>
+          </div>
+        </div>
+        <div class="container d-flex justify-content-center">
+          <table class="table table-borderless" *ngIf="right_down.length > 0">
+            <thead>
+              <tr>
+                <th scope="col text-right"> <span class="primary-color table-font">No</span></th>
+                <th scope="col text-right"><span class="primary-color table-font">Name</span></th>
+                <th scope="col text-right"><span class="primary-color table-font">Subscribers</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let key of right_down.slice().reverse() | slice:0:right_table_limit; let i=index">
+                <th scope="row" class="table-font">{{right_down.length - i}}</th>
+                <td class="font-weight-bold table-font">{{key.right_title}}</td>
+                <td class="font-weight-bold table-font">{{key.right_subscribers | comma}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
