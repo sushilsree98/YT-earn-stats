@@ -21,10 +21,9 @@ export class AllVsAllComponent implements OnInit {
     localStorage.clear()
   }
 
-
-  leftSubmit(form: NgForm) {
+  getLeftData(uid) {
     let data = {};
-    this.mainService.getData(form.value.left_player, form.value.left_uid)
+    this.mainService.getData(uid)
       .subscribe(res => {
         let response = res['items'][0]
         data['left_subscribers'] = response.statistics.subscriberCount;
@@ -41,14 +40,27 @@ export class AllVsAllComponent implements OnInit {
       })
   }
 
+
+  leftSubmit(form: NgForm) {
+    if (form.value.left_uid) {
+      this.getLeftData(form.value.left_player)
+    } else {
+      this.mainService.getUID(form.value.left_player)
+        .subscribe((res: any) => {
+          if (res?.items?.length > 0) {
+            this.getLeftData(res.items[0]['id'])
+          }
+        })
+    }
+  }
+
   deleteLeft(index) {
     this.left.splice(index, 1);
   }
 
-  rightSubmit(form: NgForm) {
-    console.log(form.value);
+  getRightData(uid) {
     let data = {};
-    this.mainService.getData(form.value.right_player, form.value.right_uid)
+    this.mainService.getData(uid)
       .subscribe(res => {
         let response = res['items'][0]
         data['right_subscribers'] = response.statistics.subscriberCount;
@@ -61,8 +73,21 @@ export class AllVsAllComponent implements OnInit {
         console.log(data);
         this.right.unshift(data);
         this.temForm2.reset()
-
       })
+  }
+
+  rightSubmit(form: NgForm) {
+    if (form.value.right_uid) {
+      this.getRightData(form.value.right_player)
+    } else {
+      this.mainService.getUID(form.value.right_player)
+        .subscribe((res: any) => {
+          if (res?.items?.length > 0) {
+            this.getRightData(res.items[0]['id'])
+          }
+        })
+    }
+    
   }
 
   startBattle() {

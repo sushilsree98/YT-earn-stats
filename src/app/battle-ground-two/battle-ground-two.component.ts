@@ -130,6 +130,7 @@ export class BattleGroundTwoComponent implements OnInit {
         } else {
           this.right_top = ""
           this.right_table_limit = 7
+          
         }
         
         if (this.left.length > 0) {
@@ -137,6 +138,9 @@ export class BattleGroundTwoComponent implements OnInit {
         } else {
           this.left_top = "";
           this.left_table_limit = 7
+          if (!this.timeLeft) {
+            return clearInterval(this.timerInterval)
+          }
         }
 
         
@@ -164,14 +168,14 @@ export class BattleGroundTwoComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.TIME_LIMIT = 20;
+    this.TIME_LIMIT = 5;
     // Initially, no time has passed, but this will count up
     // and subtract from the TIME_LIMIT
     this.timePassed = 0;
     this.timeLeft = this.TIME_LIMIT;
     setTimeout(() => {
       this.startTimer();
-    }, 8000)
+    }, 2000)
     this.left = JSON.parse(localStorage.getItem('left'));
     this.left_top = this.left.pop()
     this.left_graph = [0,0]

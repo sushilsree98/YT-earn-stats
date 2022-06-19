@@ -8,21 +8,22 @@ export class MainService {
 
   constructor(private http: HttpClient) { }
 
-  getData(name,uid){
-    let x = {};
-    if(uid){
-      x = {
+  getUID(name:string){
+    return this.http.get("https://yt.lemnoslife.com/channels", {
+      params: {
+        part:'snippet',
+        forUsername: name
+      }
+    })
+  }
+
+  getData(id){
+    let x = {
         part: ['statistics','contentDetails','snippet'],
-        key: "AIzaSyB3RBHJWXrBnjTnmLJC7cdEv98QoE8fH5U",
-        id: name
+        // key: YOUR_API_HERE
+        id: id
       }
-    }else{
-      x = {
-        part: ['statistics', 'contentDetails', 'snippet'],
-        key: "AIzaSyB3RBHJWXrBnjTnmLJC7cdEv98QoE8fH5U",
-        forUsername: name,
-      }
-    }
+    
    return this.http.get("https://www.googleapis.com/youtube/v3/channels",{
       params:x
     })

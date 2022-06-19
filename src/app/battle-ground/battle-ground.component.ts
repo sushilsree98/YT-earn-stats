@@ -51,8 +51,10 @@ export class BattleGroundComponent implements OnInit {
 }
 
 startTimer(){
+  
   this.timerInterval = setInterval(() => {
-
+    console.log(this.timeLeft)
+    
     // The amount of time passed increments by one
     this.timePassed = this.timePassed += 1;
     this.timeLeft = this.TIME_LIMIT - this.timePassed;
@@ -69,8 +71,12 @@ startTimer(){
       if(this.right.length > 0){
         this.right_top = this.right.pop()
       }else{
+        
         this.right_top = ""
-        this.table_limit = 9
+        this.table_limit = 5
+        if (!this.timeLeft) {
+          return clearInterval(this.timerInterval)
+        }
       }
     }
 
@@ -93,7 +99,7 @@ calculateTimeFraction() {
   }
 
   ngOnInit(): void {
-    this.TIME_LIMIT = 1;
+    this.TIME_LIMIT = 5;
 
     // Initially, no time has passed, but this will count up
     // and subtract from the TIME_LIMIT
@@ -101,7 +107,7 @@ calculateTimeFraction() {
     this.timeLeft = this.TIME_LIMIT;
     setTimeout(()=>{
       this.startTimer();
-    },8000)
+    },2000)
     this.left = JSON.parse(localStorage.getItem('left'));
     this.right = JSON.parse(localStorage.getItem('right'));
     this.right_top = this.right.pop()

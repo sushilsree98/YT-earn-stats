@@ -18,18 +18,16 @@ export class OneVsAllComponent implements OnInit {
     localStorage.clear()
   }
 
-
-  leftSubmit(form:NgForm){
+  getLeftData(id):void{
     let data = {};
-    this.left = [];
-    this.mainService.getData(form.value.left_player, form.value.uid)
-      .subscribe(res=>{
+    this.mainService.getData(id)
+      .subscribe(res => {
         let response = res['items'][0]
         data['left_subscribers'] = response.statistics.subscriberCount;
         data['left_video_count'] = response.statistics.videoCount;
         data['left_view_count'] = response.statistics.viewCount;
-        data['left_earning'] = ((response.statistics.viewCount/1000) * 2).toString();
-        data['left_title']  = response.snippet.title;
+        data['left_earning'] = ((response.statistics.viewCount / 1000) * 2).toString();
+        data['left_title'] = response.snippet.title;
         data['left_image'] = response.snippet.thumbnails.high.url;
         data['left_country'] = response.snippet.country;
         console.log(data);
@@ -39,14 +37,28 @@ export class OneVsAllComponent implements OnInit {
       })
   }
 
+
+  leftSubmit(form:NgForm){
+    this.left = [];
+    if (form.value.uid){
+      this.getLeftData(form.value.left_player)
+    }else{
+      this.mainService.getUID(form.value.left_player)
+        .subscribe((res: any)=>{
+          if(res?.items?.length > 0){
+            this.getLeftData(res.items[0]['id'])
+          }
+        })
+    }
+  }
+
   deleteLeft(){
     this.left.pop();
   }
 
-  rightSubmit(form:NgForm){
-    console.log(form.value);
+  getRightData(uid){
     let data = {};
-    this.mainService.getData(form.value.right_player, form.value.right_uid)
+    this.mainService.getData(uid)
       .subscribe(res => {
         let response = res['items'][0]
         data['right_subscribers'] = response.statistics.subscriberCount;
@@ -61,6 +73,20 @@ export class OneVsAllComponent implements OnInit {
         this.temForm2.reset()
 
       })
+  }
+
+  rightSubmit(form:NgForm){
+    console.log(form.value);
+    if (form.value.right_uid) {
+      this.getRightData(form.value.right_player)
+    } else {
+      this.mainService.getUID(form.value.right_player)
+        .subscribe((res: any) => {
+          if (res?.items?.length > 0) {
+            this.getRightData(res.items[0]['id'])
+          }
+        })
+    }
   }
 
   startBattle(){
